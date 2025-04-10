@@ -8,40 +8,49 @@ class FinancialController {
   final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
 
   // Financial calculations
+  //Inters Simple
   double calculateSimpleInterest(double principal, double rate, int time) {
     return principal * rate * time / 100;
   }
 
+  //Interes Compuesto
   double calculateCompoundInterest(double principal, double rate, int time) {
     return principal * (pow(1 + rate / 100, time) - 1);
   }
 
+  //Valor Futuro
   double calculateFutureValue(double principal, double rate, int time) {
     return principal * pow(1 + rate / 100, time);
   }
 
+  //Capitalización Continua
   double calculateAnnuityPayment(double principal, double rate, int time) {
     if (rate == 0) return principal / time;
     return principal * rate / 100 * pow(1 + rate / 100, time) / (pow(1 + rate / 100, time) - 1);
   }
 
   // CRUD Operations
+  //Agregar Operacion
   Future<int> addOperation(FinancialOperation operation) async {
     return await _databaseHelper.create(operation);
   }
 
+  //Leer Operaciones
   Future<List<FinancialOperation>> getAllOperations() async {
     return await _databaseHelper.readAll();
   }
 
+  //Leer Operacion
   Future<FinancialOperation?> getOperation(int id) async {
     return await _databaseHelper.read(id);
   }
 
+  //Actualizar Operacion
   Future<int> updateOperation(FinancialOperation operation) async {
     return await _databaseHelper.update(operation);
   }
 
+  //Eliminar Operacion
   Future<int> deleteOperation(int id) async {
     return await _databaseHelper.delete(id);
   }
@@ -92,13 +101,14 @@ class FinancialController {
 
       balance = newBalance;
 
-      // Actualizar fecha según frecuencia de pago
+      // Actualizar fecha según frecuencia de pagoc
       currentDate = _addPeriodToDate(currentDate, loan.paymentFrequency);
     }
 
     return table;
   }
 
+  // Agrega la frecuencia de pago a la fecha
   /*List<AmortizationEntry> generateAmortizationTable(FinancialOperation loan) {
     final payment = calculateLoanPayment(loan);
     final monthlyRate = loan.rate / 100 / 12; // Tasa mensual
@@ -131,6 +141,7 @@ class FinancialController {
     return table;
   }*/
 
+  // Agrega la frecuencia de pago a la fecha
   DateTime _addPeriodToDate(DateTime date, String frequency) {
     switch (frequency) {
       case 'monthly':

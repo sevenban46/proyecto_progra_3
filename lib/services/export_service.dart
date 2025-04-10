@@ -82,7 +82,7 @@ class ExportService {
               _buildPdfAmortizationTable(table),
               pw.SizedBox(height: 20),
               _buildPdfSummary(table, operation),
-              _buildHeader('Tabla de Amortización: ${operation.description}'),
+              //_buildHeader('Tabla de Amortización: ${operation.description}'),
               pw.SizedBox(height: 20),
               _buildAmortizationTable(table),
             ],
